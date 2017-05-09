@@ -2,6 +2,62 @@
 
 -----
 
+## [3.7.1 - GIF is Animated](https://github.com/onevcat/Kingfisher/releases/tag/3.7.1) (2017-05-08)
+
+#### Fix
+* Deprecated `preloadAllGIFData`. Change to a more generic name `preloadAllAnimationData` since it could be used for other format with `ImageProcessor`. [#664](https://github.com/onevcat/Kingfisher/pull/664)
+
+---
+
+## [3.7.0 - Summer Bird](https://github.com/onevcat/Kingfisher/releases/tag/3.7.0) (2017-05-04)
+
+#### Add
+* A delegate method in `ImageDownloaderDelegate` to notify starting of a downloading progress.
+
+#### Fix
+* Better documentation for `Resource` parameter in image setting extension.
+
+---
+
+## [3.6.2 - Naughty CGImage](https://github.com/onevcat/Kingfisher/releases/tag/3.6.2) (2017-04-11)
+
+#### Fix
+* A problem in `CroppingImageProcessor` and `crop` method of images which crops wrong area for images with a non-`1` scale. [#649](https://github.com/onevcat/Kingfisher/pull/649)
+* Refactor for `ResizingImageProcessor`. `targetSize` of `ResizingImageProcessor` is now deprecated. Use `referenceSize` instead. It's just a name changing for clearer API. [#646](https://github.com/onevcat/Kingfisher/pull/646)
+
+---
+
+## [3.6.1 - Some Optimization](https://github.com/onevcat/Kingfisher/releases/tag/3.6.1) (2017-04-01)
+
+#### Fix
+* Fix warnings when build Kingfisher in Swift 3.1 compiler. [#632](https://github.com/onevcat/Kingfisher/pull/632)
+* Wrong size when decoding images with a passed-in scale option. [#633](https://github.com/onevcat/Kingfisher/pull/633)
+* Speed up MD5 calculation by turing to a pure Swift implementation. [#636](https://github.com/onevcat/Kingfisher/pull/636)
+* Host docs directly in GitHub. [#641](https://github.com/onevcat/Kingfisher/pull/641)
+
+---
+
+## [3.6.0 - Cropping](https://github.com/onevcat/Kingfisher/releases/tag/3.6.0) (2017-03-26)
+
+#### Add
+* A built-in image processor to crop images with a targeted size and anchor. [#465](https://github.com/onevcat/Kingfisher/issues/465)
+
+---
+
+## [3.5.2 - Bad Apple](https://github.com/onevcat/Kingfisher/releases/tag/3.5.2) (2017-03-09)
+
+#### Fix
+* An issue which causes app crashing while folder enumerating encountered an error in `ImageCache`. [#620](https://github.com/onevcat/Kingfisher/pull/620)
+
+---
+
+## [3.5.1 - Fast is better than slow](https://github.com/onevcat/Kingfisher/releases/tag/3.5.1) (2017-03-01)
+
+#### Fix
+* A minor improvement on slow compiling time due to a method in `Image`. [#611](https://github.com/onevcat/Kingfisher/issues/611)
+
+---
+
 ## [3.5.0 - New age, new content](https://github.com/onevcat/Kingfisher/releases/tag/3.5.0) (2017-02-21)
 
 #### Add
