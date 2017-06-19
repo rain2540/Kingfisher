@@ -67,7 +67,7 @@ extension Kingfisher where Base: ImageView {
             return .empty
         }
         
-        var options = options ?? KingfisherEmptyOptionsInfo
+        var options = KingfisherManager.shared.defaultOptions + (options ?? KingfisherEmptyOptionsInfo)
         
         if !options.keepCurrentImageWhileLoading {
             base.image = placeholder
@@ -95,20 +95,21 @@ extension Kingfisher where Base: ImageView {
             },
             completionHandler: {[weak base] image, error, cacheType, imageURL in
                 DispatchQueue.main.safeAsync {
+                    maybeIndicator?.stopAnimatingView()
                     guard let strongBase = base, imageURL == self.webURL else {
+                        completionHandler?(image, error, cacheType, imageURL)
                         return
                     }
+                    
                     self.setImageTask(nil)
                     guard let image = image else {
-                        maybeIndicator?.stopAnimatingView()
                         completionHandler?(nil, error, cacheType, imageURL)
                         return
                     }
                     
-                    guard let transitionItem = options.firstMatchIgnoringAssociatedValue(.transition(.none)),
+                    guard let transitionItem = options.lastMatchIgnoringAssociatedValue(.transition(.none)),
                         case .transition(let transition) = transitionItem, ( options.forceTransition || cacheType == .none) else
                     {
-                        maybeIndicator?.stopAnimatingView()
                         strongBase.image = image
                         completionHandler?(image, error, cacheType, imageURL)
                         return
