@@ -4,7 +4,7 @@
 //
 //  Created by onevcat on 2018/11/19.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,7 @@ class ProcessorCollectionViewController: UICollectionViewController {
     
     var processors: [(ImageProcessor, String)] = [
         (DefaultImageProcessor.default, "Default"),
+        (ResizingImageProcessor(referenceSize: .zero), "Resizing"),
         (RoundCornerImageProcessor(cornerRadius: 20), "Round Corner"),
         (RoundCornerImageProcessor(cornerRadius: 20, roundingCorners: [.topLeft, .bottomRight]), "Round Corner Partial"),
         (BlendImageProcessor(blendMode: .lighten, alpha: 1.0, backgroundColor: .red), "Blend"),
@@ -49,7 +50,7 @@ class ProcessorCollectionViewController: UICollectionViewController {
         (BlackWhiteProcessor(), "B&W"),
         (CroppingImageProcessor(size: CGSize(width: 100, height: 100)), "Cropping"),
         (DownsamplingImageProcessor(size: CGSize(width: 25, height: 25)), "Downsampling"),
-        (BlurImageProcessor(blurRadius: 5) >> RoundCornerImageProcessor(cornerRadius: 20), "Blur + Round Corner")
+        (BlurImageProcessor(blurRadius: 5) |> RoundCornerImageProcessor(cornerRadius: 20), "Blur + Round Corner")
     ]
     
     override func viewDidLoad() {

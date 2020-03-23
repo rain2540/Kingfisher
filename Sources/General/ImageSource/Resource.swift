@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/6.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -38,16 +38,24 @@ public protocol Resource {
     var downloadURL: URL { get }
 }
 
+extension Resource {
+
+    /// Converts `self` to a valid `Source` based on its `downloadURL` scheme. A `.provider` with
+    /// `LocalFileImageDataProvider` associated will be returned if the URL points to a local file. Otherwise,
+    /// `.network` is returned.
+    public func convertToSource() -> Source {
+        return downloadURL.isFileURL ?
+            .provider(LocalFileImageDataProvider(fileURL: downloadURL, cacheKey: cacheKey)) :
+            .network(self)
+    }
+}
+
 /// ImageResource is a simple combination of `downloadURL` and `cacheKey`.
 /// When passed to image view set methods, Kingfisher will try to download the target
 /// image from the `downloadURL`, and then store it with the `cacheKey` as the key in cache.
 public struct ImageResource: Resource {
-    
-    /// The key used in cache.
-    public let cacheKey: String
-    
-    /// The target image URL.
-    public let downloadURL: URL
+
+    // MARK: - Initializers
 
     /// Creates an image resource.
     ///
@@ -59,6 +67,14 @@ public struct ImageResource: Resource {
         self.downloadURL = downloadURL
         self.cacheKey = cacheKey ?? downloadURL.absoluteString
     }
+
+    // MARK: Protocol Conforming
+    
+    /// The key used in cache.
+    public let cacheKey: String
+
+    /// The target image URL.
+    public let downloadURL: URL
 }
 
 /// URL conforms to `Resource` in Kingfisher.

@@ -4,7 +4,7 @@
 //
 //  Created by onevcat on 2018/11/12.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ class StorageExpirationTests: XCTestCase {
     
     func testExpirationDays() {
         let e = StorageExpiration.days(1)
-        let oneDayInSecond: TimeInterval = 60 * 60 * 24
+        let oneDayInSecond = TimeInterval(TimeConstants.secondsInOneDay)
         XCTAssertEqual(
             e.estimatedExpirationSinceNow.timeIntervalSince1970,
             Date().timeIntervalSince1970 + oneDayInSecond,
@@ -58,7 +58,7 @@ class StorageExpirationTests: XCTestCase {
     }
     
     func testExpirationDate() {
-        let oneDayInSecond: TimeInterval = 60 * 60 * 24
+        let oneDayInSecond = TimeInterval(TimeConstants.secondsInOneDay)
         let targetDate = Date().addingTimeInterval(oneDayInSecond)
         let e = StorageExpiration.date(targetDate)
         XCTAssertEqual(
